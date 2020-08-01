@@ -1,0 +1,30 @@
+extends ../layout
+
+block content
+  h1= title
+  h4 Welcome to #{title}
+
+  form(action="/users/", method="post", class="user_registration")
+    fieldset
+      legend sign up
+
+      label(for="username") username 
+      input(type="text", id="username" name="username", required)
+      br
+      br
+
+      label(for="email") email 
+      input(type="email", id="email" name="email", required)
+      br
+      br
+      
+      label(for="password") password 
+      input(type="password", id="password" name="password", minlength="7", required)
+      br
+      br
+
+      label(for="confpassword") confirm password 
+      input(type="password", id="confpassword" name="confpassword", minlength="7", required)
+
+      p
+        input(type="submit", value="Submit")

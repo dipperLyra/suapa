@@ -3,12 +3,15 @@ const { check } = require('express-validator');
 var router = express.Router();
 var {body, validationResult} = require('express-validator');
 var userService = require("../services/user-registration-service");
+var model = require("../models/index");
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+  userService.listAllUsers()
+  .then(users => res.send(users))
 });
 
+/* Create new users */
 router.post('/', [
   body("username").isAlphanumeric(),
   body("email").isEmail(),
@@ -23,9 +26,13 @@ router.post('/', [
     userService.register(req, res);
 });
 
-router.get('/list', (req, res) => {
-  userService.listAllUsers(req, res);
+/* render pages */
+router.get('/signup-page', function(req, res) {
+    res.render('user/sign-up', { title: 'Suapa'})
+})
 
-});
+router.get('/signin-page', function(req, res) {
+  res.render('user/sign-in', { title: 'Suapa'})
+})
 
 module.exports = router;
