@@ -2,32 +2,41 @@
 var model = require("../models/index");
 var bcrypt = require("bcryptjs");
 var message = require("../utils/messages");
+var {setSuccessResponseMessage, setFailResponseMessage} = require("../utils/response");
 
 
 
 function register(req, res) {
+    model.User.create(setUserParams(req))
+    .then(user => setSuccessResponseMessage(res, user, message.user_created))
+    .catch(err => setFailResponseMessage(res, err, message.user_not_created))
+}
+
+function setUserParams(req) {
     let passwordHash = bcrypt.hashSync(req.body.password, 8);
 
-    model.User.create({
+    return {
         username: req.body.username,
         password: passwordHash,
         email: req.body.email,
         createdAt: new Date(),
         updatedAt: new Date()
+    }
+}
+
+function signin(req, res) {
+    model.User.findOne({
+        where: req.body.username
     })
-    .then(user => res.json({
-        data: {
-            success: true,
-            message: message.user_created,
-            user: user
+    .then(user => {
+        let isPassword = bcrypt.compareSync(req.body.password, user.password);
+
+        if(isPassword) {
+            return true
+        } else {
+            return false
         }
-    }))
-    .catch(err => res.json({
-        data: {
-            success: false,
-            message: message.user_not_created
-        }
-    }))
+    })
 }
 
 function listAllUsers(req, res) {
@@ -36,4 +45,10 @@ function listAllUsers(req, res) {
     });
 }
 
-module.exports = {register, listAllUsers};
+function deleteAllUsers() {
+     model.User.destroy({
+        truncate: true
+    });
+}
+
+module.exports = {register, listAllUsers, deleteAllUsers};

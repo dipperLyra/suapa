@@ -1,5 +1,4 @@
 var express = require('express');
-const { check } = require('express-validator');
 var router = express.Router();
 var {body, validationResult} = require('express-validator');
 var userService = require("../services/user-registration-service");
@@ -26,6 +25,8 @@ router.post('/', [
     userService.register(req, res);
 });
 
+/* sign in */
+
 /* render pages */
 router.get('/signup-page', function(req, res) {
     res.render('user/sign-up', { title: 'Suapa'})
@@ -33,6 +34,11 @@ router.get('/signup-page', function(req, res) {
 
 router.get('/signin-page', function(req, res) {
   res.render('user/sign-in', { title: 'Suapa'})
+})
+
+/* wipes the table... for development only */
+router.delete('/', () => {
+  userService.deleteAllUsers();
 })
 
 module.exports = router;
