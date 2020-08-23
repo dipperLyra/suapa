@@ -10,6 +10,16 @@ function setSuccessResponseMessage(res, result, message) {
     })
 }
 
+function setSuccessResponseMessageItem(res, result, message) {
+    return res.json({
+        data: {
+            success: true,
+            message: message,
+            items: result
+        }
+    })
+}
+
 function setFailResponseMessage(res, message) {
     return res.json({
         data: {
@@ -19,4 +29,4 @@ function setFailResponseMessage(res, message) {
     })
 }
 
-module.exports = {setSuccessResponseMessage, setFailResponseMessage};
+module.exports = {setSuccessResponseMessage, setSuccessResponseMessageItem, setFailResponseMessage};

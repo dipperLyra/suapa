@@ -1,0 +1,27 @@
+extends ../layout
+
+block content
+  h1= title
+  h4 Welcome to #{title}
+
+  form(action="/items/add", method="post", class="post-items")
+      fieldset
+        legend Upload an item 
+
+        label(for="item-name") name of item
+        input(type="text", id="item-name" name="item_name", required)
+        br
+        br
+
+        label(for="item-description") description 
+        input(type="text", id="item-description" name="item_description", required)
+
+        label(for="contact-email") contact email 
+        input(type="text", id="contact-email" name="contact_email")
+
+        label(for="contact-phone") contact phone 
+        input(type="text", id="contact-phone" name="contact_phone")
+        
+        p
+          input(type="submit", value="Submit")
+

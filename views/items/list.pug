@@ -1,0 +1,20 @@
+extends ../layout
+
+
+block content
+    div #{title}
+
+    table
+        thead
+            th S/N
+            th Name
+            th Description
+            th Contact
+            th Date
+        each val, key in result
+            tr
+                td=val.id
+                td= val.name
+                td= val.description
+                td= 'phone: ' + val.phone + ',  email: ' + val.email
+                td= val.updatedAt

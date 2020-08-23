@@ -16,8 +16,10 @@ const message =  {
     'stock_not_created': 'stock not created',
     'stock_not_found': 'stock not found',
     'successful_production': 'successful production',
-    'outlet_created': 'outlet created',
-    'outlet_not_created': 'outlet not created',
+    'item_created': 'item created',
+    'item_not_created': 'item not created',
+    'item_found': 'item found',
+    'item_not_found': 'item not found',
     'outlet_not_found': 'outlet not found',
 };
 

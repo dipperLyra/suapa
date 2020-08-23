@@ -32,7 +32,7 @@ function signin(req, res) {
         let isPassword = bcrypt.compareSync(req.body.password, user.password);
 
         if(isPassword) {
-            return true
+            return true //store session
         } else {
             return false
         }
